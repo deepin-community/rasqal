@@ -1,0 +1,39 @@
+#!/usr/bin/make -f
+
+# Replace default CDBS cleanbuilddir rule; has to be before/after definition
+cleanbuilddir::
+	# raw clean calls distclean deletes the docs/html documentation
+	if test -r Makefile; then \
+	  mv docs/html docs/html.saved; \
+	fi
+
+include /usr/share/cdbs/1/rules/debhelper.mk
+include /usr/share/cdbs/1/class/autotools.mk
+include /usr/share/cdbs/1/rules/autoreconf.mk
+include /usr/share/cdbs/1/class/makefile.mk
+
+cleanbuilddir::
+	if test -e docs/html.saved; then \
+	  mv docs/html.saved docs/html; \
+	fi
+
+DEB_INSTALL_DOCS_ALL=README NEWS AUTHORS NOTICE
+
+DEB_INSTALL_MANPAGES_librasqal3-dev=src/rasqal-config.1 docs/librasqal.3
+DEB_INSTALL_MANPAGES_rasqal-utils=utils/roqet.1
+DEB_SHLIBDEPS_INCLUDE=debian/librasqal3/usr/lib
+
+DEB_CONFIGURE_EXTRA_FLAGS := \
+--with-regex-library=pcre --with-decimal=gmp --with-uuid-library=libuuid \
+--libdir=\$${prefix}/lib/$(DEB_HOST_MULTIARCH)
+
+DEB_DBG_PACKAGE_librasqal3 = librasqal3-dbg
+
+# do this or autoreconf calling libtoolize destroys the build/ directory contents
+LIBTOOLIZE=libtoolize --automake --ltdl
+
+# Show what dh_autoreconf is deleting / moving / restoring
+DEB_DH_AUTORECONF_ARGS := --verbose
+
+install/librasqal3-dev::
+	 cd debian/tmp/usr/lib/* && sed "/dependency_libs/ s/'.*'/''/" librasqal.la > librasqal.la.new && mv librasqal.la.new librasqal.la

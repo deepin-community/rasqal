@@ -1,10 +1,12 @@
 Source: rasqal
 Section: devel
 Priority: optional
-Maintainer: Dave Beckett <dajobe@debian.org>
-Build-Depends: debhelper (>> 8.1.3), cdbs (>= 0.4.93~), dh-autoreconf, pkg-config, libraptor2-dev (>=2.0.12-2), libgmp-dev, libmhash-dev, libpcre3-dev, uuid-dev, gtk-doc-tools
-Standards-Version: 3.9.5
-Homepage: http://librdf.org/rasqal/
+Maintainer: Debian QA Group <packages@qa.debian.org>
+Build-Depends: debhelper-compat (= 13), pkg-config, libraptor2-dev, libgmp-dev, libmhash-dev, uuid-dev, gtk-doc-tools
+Standards-Version: 4.6.1
+Homepage: https://librdf.org/rasqal/
+Vcs-Git: https://salsa.debian.org/debian/rasqal.git
+Vcs-Browser: https://salsa.debian.org/debian/rasqal
 
 Package: librasqal3-dev
 Provides: librasqal-dev
@@ -14,7 +16,7 @@ Replaces: librasqal2-dev
 Suggests: librasqal3-doc
 Section: libdevel
 Architecture: any
-Depends: librasqal3 (= ${binary:Version}), libraptor2-dev (>= 2.0.12-2), libgmp-dev, ${misc:Depends}
+Depends: librasqal3 (= ${binary:Version}), libraptor2-dev, libgmp-dev, ${misc:Depends}
 Description: Rasqal RDF query library development libraries and headers
  Development libraries, header files and documentation needed by
  programs that want to compile with the Rasqal RDF query library.
@@ -30,7 +32,7 @@ Description: Rasqal RDF query library
  Rasqal is a C library providing support for querying the
  Resource Description Framework (RDF) including
  parsing query syntaxes, constructing the queries, executing them,
- returning result bindings and formatting results.  It supports the 
+ returning result bindings and formatting results.  It supports the
  SPARQL RDF Query Language, RDF Data Query Language (RDQL) and LAQRS
  experimental query language extending SPARQL.
  .
@@ -43,18 +45,9 @@ Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Suggests: raptor2-utils, redland-utils
 Description: Rasqal RDF Query utilities
- This package provides the roqet tool for querying RDF content 
+ This package provides the roqet tool for querying RDF content
  with SPARQL and RDQL RDF query languages using the Rasqal RDF
  query library.
-
-Package: librasqal3-dbg
-Priority: extra
-Section: debug
-Architecture: any
-Depends: ${misc:Depends}, librasqal3 (= ${binary:Version})
-Description: Rasqal RDF Query Library - debugging symbols
- This package contains the debugging symbols for debugging
- applications which use librasqal3.
 
 Package: librasqal3-doc
 Section: doc
@@ -64,7 +57,7 @@ Description: Documentation for the Rasqal RDF Query library
  Rasqal is a C library providing support for querying the
  Resource Description Framework (RDF) including
  parsing query syntaxes, constructing the queries, executing them,
- returning result bindings and formatting results.  It supports the 
+ returning result bindings and formatting results.  It supports the
  SPARQL RDF Query Language, RDF Data Query Language (RDQL) and LAQRS
  experimental query language extending SPARQL.
  .

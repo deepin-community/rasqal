@@ -1,7 +1,49 @@
+rasqal (0.9.33-2) unstable; urgency=medium
+
+  * QA upload.
+  * debian/control: Drop build dependency on libpcre3-dev. (Closes: #999976)
+
+ -- Bastian Germann <bage@debian.org>  Wed, 22 Feb 2023 17:42:12 +0100
+
+rasqal (0.9.33-1) unstable; urgency=low
+
+  [ Debian Janitor ]
+  * QA Upload.
+    Orphan package - see bug 1012728.
+  * Trim trailing whitespace.
+  * Use secure URI in Homepage field.
+  * Fix day-of-week for changelog entries 0.9.16-2, 0.9.15-1.
+  * Update standards version to 4.6.1, no changes needed.
+  * Remove constraints unnecessary since buster (oldstable):
+    + Build-Depends: Drop versioned constraint on libraptor2-dev.
+    + librasqal3-dev: Drop versioned constraint on libraptor2-dev in Depends.
+
+ -- Boyuan Yang <byang@debian.org>  Tue, 29 Nov 2022 12:24:51 -0500
+
+rasqal (0.9.33-0.3) unstable; urgency=high
+
+  * Non-maintainer upload.
+  * debian/: Bump debhelper compat to v13. (Closes: #965799)
+  * debian/control:
+    + Bump Standards-Version to 4.6.0.
+    + Add Vcs-* fields.
+    + Migrate from manual -dbg package to automatic -dbgsym package.
+  * debian/changelog: Drop trailing spaces.
+  * debian/control: Drop trailing spaces.
+  * debian/rules:
+    + Convert to dh sequencer.
+    + Build documentation from source code instead of using pre-built
+      doc/html.
+    + Enable full hardening.
+  * debian/copyright: Use secure URI.
+  * debian/watch: Update to v4 format.
+
+ -- Boyuan Yang <byang@debian.org>  Tue, 03 May 2022 21:34:08 -0400
+
 rasqal (0.9.33-0.2) unstable; urgency=high
 
   * Non-maintainer upload.
-  * Add missing build-dependency gtk-doc-tools. (Closes: #978895) 
+  * Add missing build-dependency gtk-doc-tools. (Closes: #978895)
 
  -- Boyuan Yang <byang@debian.org>  Sat, 18 Sep 2021 13:40:08 -0400
 
@@ -182,7 +224,7 @@ rasqal (0.9.16-2) unstable; urgency=low
   * Update standards version to 3.8.3
   * debian/control: add misc:Depends [lintian]
 
- -- Dave Beckett <dajobe@debian.org>  Sat, 29 Nov 2009 22:42:00 -0700
+ -- Dave Beckett <dajobe@debian.org>  Sun, 29 Nov 2009 22:42:00 -0700
 
 rasqal (0.9.16-1) unstable; urgency=low
 
@@ -205,7 +247,7 @@ rasqal (0.9.15-1) unstable; urgency=low
   * Bump librasqal0 shlibs to 0.9.15
   * Require libgmp3-dev to get GNU MP
 
- -- Dave Beckett <dajobe@debian.org>  Sun, 12 Nov 2007 12:08:52 +0000
+ -- Dave Beckett <dajobe@debian.org>  Mon, 12 Nov 2007 12:08:52 +0000
 
 rasqal (0.9.14-1) unstable; urgency=low
 
@@ -342,4 +384,3 @@ rasqal (0.9.0-1) unstable; urgency=low
   * Initial package
 
  -- Dave Beckett <Dave.Beckett@bristol.ac.uk>  Sat, 29 May 2004 22:55:45 +0100
-

@@ -1,6 +1,7 @@
 debian/tmp/usr/include/rasqal/*.h
 debian/tmp/usr/lib/*/librasqal.a
-debian/tmp/usr/lib/*/librasqal.la
 debian/tmp/usr/lib/*/librasqal.so
 debian/tmp/usr/lib/*/pkgconfig/rasqal.pc
 debian/tmp/usr/bin/rasqal-config
+usr/share/man/man1/rasqal-config.1
+usr/share/man/man3/librasqal.3

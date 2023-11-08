@@ -1,39 +1,26 @@
 #!/usr/bin/make -f
+# -*- makefile -*-
+# Uncomment this to turn on verbose mode.
+# export DH_VERBOSE=1
 
-# Replace default CDBS cleanbuilddir rule; has to be before/after definition
-cleanbuilddir::
-	# raw clean calls distclean deletes the docs/html documentation
-	if test -r Makefile; then \
-	  mv docs/html docs/html.saved; \
-	fi
+# see FEATURE AREAS in dpkg-buildflags(1)
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
-include /usr/share/cdbs/1/rules/debhelper.mk
-include /usr/share/cdbs/1/class/autotools.mk
-include /usr/share/cdbs/1/rules/autoreconf.mk
-include /usr/share/cdbs/1/class/makefile.mk
+# see ENVIRONMENT in dpkg-buildflags(1)
+# package maintainers to append CFLAGS
+#export DEB_CFLAGS_MAINT_APPEND  = -Wall -pedantic
+# package maintainers to append LDFLAGS
+export DEB_LDFLAGS_MAINT_APPEND =
 
-cleanbuilddir::
-	if test -e docs/html.saved; then \
-	  mv docs/html.saved docs/html; \
-	fi
+%:
+	dh $@
 
-DEB_INSTALL_DOCS_ALL=README NEWS AUTHORS NOTICE
+override_dh_auto_configure:
+	dh_auto_configure -- \
+            --with-regex-library=pcre \
+	        --with-decimal=gmp \
+	        --with-uuid-library=libuuid \
+	        --libdir=\$${prefix}/lib/$(DEB_HOST_MULTIARCH)
 
-DEB_INSTALL_MANPAGES_librasqal3-dev=src/rasqal-config.1 docs/librasqal.3
-DEB_INSTALL_MANPAGES_rasqal-utils=utils/roqet.1
-DEB_SHLIBDEPS_INCLUDE=debian/librasqal3/usr/lib
-
-DEB_CONFIGURE_EXTRA_FLAGS := \
---with-regex-library=pcre --with-decimal=gmp --with-uuid-library=libuuid \
---libdir=\$${prefix}/lib/$(DEB_HOST_MULTIARCH)
-
-DEB_DBG_PACKAGE_librasqal3 = librasqal3-dbg
-
-# do this or autoreconf calling libtoolize destroys the build/ directory contents
-LIBTOOLIZE=libtoolize --automake --ltdl
-
-# Show what dh_autoreconf is deleting / moving / restoring
-DEB_DH_AUTORECONF_ARGS := --verbose
-
-install/librasqal3-dev::
-	 cd debian/tmp/usr/lib/* && sed "/dependency_libs/ s/'.*'/''/" librasqal.la > librasqal.la.new && mv librasqal.la.new librasqal.la
+override_dh_strip:
+	dh_strip --dbgsym-migration='librasqal3-dbg (<< 0.9.33-0.3~)'
